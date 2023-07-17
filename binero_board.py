@@ -1,10 +1,10 @@
 from typing import List
 
 from exceptions import (
-    BineroThreeZeroesException,
-    BineroThreeOnesException,
     BineroEmptyCellsException,
-    BineroMismatchingCountException
+    BineroMismatchingCountException,
+    BineroThreeOnesException,
+    BineroThreeZeroesException
 )
 
 
