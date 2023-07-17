@@ -3,8 +3,12 @@ import unittest
 from hamcrest import assert_that, equal_to, raises, calling
 
 from binero_board import BineroBoard
-from exceptions import BineroThreeZeroesException, BineroThreeOnesException, BineroMismatchingCountException, \
+from exceptions import (
+    BineroThreeZeroesException,
+    BineroThreeOnesException,
+    BineroMismatchingCountException,
     BineroEmptyCellsException
+)
 
 
 class TestBineroBoard(unittest.TestCase):

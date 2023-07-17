@@ -1,7 +1,11 @@
 from typing import List
 
-from exceptions import BineroThreeZeroesException, BineroThreeOnesException, BineroEmptyCellsException, \
+from exceptions import (
+    BineroThreeZeroesException,
+    BineroThreeOnesException,
+    BineroEmptyCellsException,
     BineroMismatchingCountException
+)
 
 
 class BineroBoard:
