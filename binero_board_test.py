@@ -1,11 +1,13 @@
 import unittest
 
-from hamcrest import assert_that, equal_to
+from hamcrest import assert_that, equal_to, raises, calling
 
 from binero_board import BineroBoard
+from exceptions import BineroThreeZeroesException, BineroThreeOnesException, BineroMismatchingCountException, \
+    BineroEmptyCellsException
 
 
-class BineroBoardTest(unittest.TestCase):
+class TestBineroBoard(unittest.TestCase):
 
     def test_get_row(self):
         board = ['01',
@@ -29,19 +31,23 @@ class BineroBoardTest(unittest.TestCase):
 
     def test_invalid_sequence_three_zeroes(self):
         binero_board = BineroBoard()
-        assert_that(binero_board.is_valid_sequence('11000110'), equal_to(False))
+        assert_that(calling(binero_board.is_valid_sequence).with_args('11000110'),
+                    raises(BineroThreeZeroesException))
 
     def test_invalid_sequence_three_ones(self):
         binero_board = BineroBoard()
-        assert_that(binero_board.is_valid_sequence('11100110'), equal_to(False))
+        assert_that(calling(binero_board.is_valid_sequence).with_args('11100110'),
+                    raises(BineroThreeOnesException))
 
     def test_invalid_sequence_mismatching_counts(self):
         binero_board = BineroBoard()
-        assert_that(binero_board.is_valid_sequence('1011'), equal_to(False))
+        assert_that(calling(binero_board.is_valid_sequence).with_args('1011'),
+                    raises(BineroMismatchingCountException))
 
     def test_invalid_sequence_empty_cells(self):
         binero_board = BineroBoard()
-        assert_that(binero_board.is_valid_sequence('1 010'), equal_to(False))
+        assert_that(calling(binero_board.is_valid_sequence).with_args('1 010'),
+                    raises(BineroEmptyCellsException))
 
     def test_board_is_solved(self):
         binero_board = BineroBoard()

@@ -1,5 +1,8 @@
 from typing import List
 
+from exceptions import BineroThreeZeroesException, BineroThreeOnesException, BineroEmptyCellsException, \
+    BineroMismatchingCountException
+
 
 class BineroBoard:
 
@@ -29,17 +32,13 @@ class BineroBoard:
     def is_valid_sequence(self, sequence: str) -> bool:
         print(f"Validating sequence '{sequence}'")
         if '000' in sequence:
-            print(f"Err: sequence '{sequence}' contains '000'")
-            return False
+            raise BineroThreeZeroesException(f"Err: sequence '{sequence}' contains '000'")
         if '111' in sequence:
-            print(f"Err: sequence '{sequence}' contains '111'")
-            return False
+            raise BineroThreeOnesException(f"Err: sequence '{sequence}' contains '111'")
         if ' ' in sequence:
-            print(f"Err: sequence '{sequence}' contains empty cell(s)")
-            return False
+            raise BineroEmptyCellsException(f"Err: sequence '{sequence}' contains empty cell(s)")
         if sequence.count('0') != sequence.count('1'):
-            print(f"Err: sequence '{sequence}' has different amount of 1's and 0's")
-            return False
+            raise BineroMismatchingCountException(f"Err: sequence '{sequence}' has different amount of 1's and 0's")
 
         return True
 
