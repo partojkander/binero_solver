@@ -1,7 +1,7 @@
 from typing import List
 
 
-class BineroSolver:
+class BineroBoard:
 
     board = ['0110',
              '1100',
@@ -57,5 +57,5 @@ class BineroSolver:
 
 
 if __name__ == '__main__':
-    b = BineroSolver()
+    b = BineroBoard()
     print(b.is_board_solved())
