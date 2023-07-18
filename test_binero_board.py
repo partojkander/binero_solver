@@ -22,12 +22,16 @@ class TestBineroBoard(unittest.TestCase):
         assert_that(b.get_row(1), equal_to('10'))
 
     def test_get_column(self):
-        board = ['10',
-                 '10']
+        board = ['1010',
+                 '1001',
+                 '0110',
+                 '0011']
         b = BineroBoard()
         b.board = board
-        assert_that(b.get_column(0), equal_to('11'))
-        assert_that(b.get_column(1), equal_to('00'))
+        assert_that(b.get_column(0), equal_to('1100'))
+        assert_that(b.get_column(1), equal_to('0010'))
+        assert_that(b.get_column(2), equal_to('1011'))
+        assert_that(b.get_column(3), equal_to('0101'))
 
     def test_valid_sequence(self):
         board = BineroBoard()
@@ -77,13 +81,13 @@ class TestBineroBoard(unittest.TestCase):
 
     def test_set_column_2(self):
         binero_board = BineroBoard()
-        binero_board.board = ['1   ',
-                              '1   ',
-                              '1   ',
-                              '1   ']
-        binero_board.set_column(2, '0000')
-        expected_board = ['1 0 ',
-                          '1 0 ',
-                          '1 0 ',
-                          '1 0 ']
+        binero_board.board = ['0000',
+                              '0000',
+                              '0000',
+                              '0000']
+        binero_board.set_column(2, '1010')
+        expected_board = ['0010',
+                          '0000',
+                          '0010',
+                          '0000']
         assert_that(binero_board.board, equal_to(expected_board))

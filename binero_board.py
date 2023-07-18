@@ -32,7 +32,7 @@ class BineroBoard:
 
     def set_column(self, column_index, new_column):
         for row_index, row in enumerate(self.get_rows()):
-            row = row[:column_index] + new_column[column_index] + row[column_index + 1:]
+            row = row[:column_index] + new_column[row_index] + row[column_index + 1:]
             self.board[row_index] = row
 
     def get_rows(self) -> List[str]:
