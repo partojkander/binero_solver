@@ -10,10 +10,13 @@ from exceptions import (
 
 class BineroBoard:
 
-    board = ['0110',
-             '1100',
-             '1001',
-             '0110']
+    board = []
+
+    def __init__(self):
+        self.board = ['    ',
+                      '    ',
+                      '    ',
+                      '    ']
 
     def print_board(self):
         print('\n'.join([row for row in self.board]))
