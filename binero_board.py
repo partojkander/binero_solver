@@ -18,9 +18,6 @@ class BineroBoard:
                       '    ',
                       '    ']
 
-    def print_board(self):
-        print('\n'.join([row for row in self.board]))
-
     def get_row(self, index) -> str:
         return self.board[index]
 
@@ -69,7 +66,6 @@ class BineroBoard:
 
         return True
 
+    def __str__(self):
+        return '\n'.join([row for row in self.board])
 
-if __name__ == '__main__':
-    b = BineroBoard()
-    print(b.is_board_solved())
