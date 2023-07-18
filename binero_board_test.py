@@ -60,3 +60,30 @@ class TestBineroBoard(unittest.TestCase):
                               '1001',
                               '0110']
         assert_that(binero_board.is_board_solved(), equal_to(True))
+
+    def test_set_row(self):
+        binero_board = BineroBoard()
+        binero_board.board = ['  ',
+                              '11']
+        binero_board.set_row(0, '00')
+        assert_that(binero_board.board, equal_to(['00', '11']))
+
+    def test_set_column_1(self):
+        binero_board = BineroBoard()
+        binero_board.board = ['1 ',
+                              '1 ']
+        binero_board.set_column(1, '00')
+        assert_that(binero_board.board, equal_to(['10', '10']))
+
+    def test_set_column_2(self):
+        binero_board = BineroBoard()
+        binero_board.board = ['1   ',
+                              '1   ',
+                              '1   ',
+                              '1   ']
+        binero_board.set_column(2, '0000')
+        expected_board = ['1 0 ',
+                          '1 0 ',
+                          '1 0 ',
+                          '1 0 ']
+        assert_that(binero_board.board, equal_to(expected_board))

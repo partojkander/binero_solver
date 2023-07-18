@@ -27,6 +27,14 @@ class BineroBoard:
     def get_column(self, index) -> str:
         return ''.join([row[index] for row in self.board])
 
+    def set_row(self, index, new_row) -> None:
+        self.board[index] = new_row
+
+    def set_column(self, column_index, new_column):
+        for row_index, row in enumerate(self.get_rows()):
+            row = row[:column_index] + new_column[column_index] + row[column_index + 1:]
+            self.board[row_index] = row
+
     def get_rows(self) -> List[str]:
         return self.board
 
