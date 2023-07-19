@@ -90,3 +90,10 @@ class TestBineroBoard(unittest.TestCase):
                           '0010',
                           '0000']
         assert_that(binero_board.get_board(), equal_to(expected_board))
+
+    def test_invalid_board_size(self):
+        assert_that(calling(BineroBoard).with_args(size=1), raises(ValueError))
+
+    def test_set_board_with_invalid_size(self):
+        board = BineroBoard(size=4)
+        assert_that(calling(board.set_board).with_args(['10', '01']), raises(ValueError))
