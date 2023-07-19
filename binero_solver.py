@@ -5,11 +5,10 @@ from binero_board import BineroBoard
 
 class BineroSolver:
 
-    board = BineroBoard()
-    board.board = [' 1 1',
-                   '00 0',
-                   '0010',
-                   ' 101']
+    board = None
+
+    def __init__(self, size):
+        self.board = BineroBoard(size=size)
 
     def fill_around_double(self, sequence: str) -> str:
         sequence = sequence.replace(' 00', '100')
@@ -25,7 +24,7 @@ class BineroSolver:
 
     def apply_solutions(self):
         while True:
-            old_board = copy(self.board.board)
+            old_board = copy(self.board.get_board())
             for row_index, row in enumerate(self.board.get_rows()):
                 row = self.fill_around_double(row)
                 row = self.fill_gap(row)
@@ -34,6 +33,6 @@ class BineroSolver:
                 column = self.fill_around_double(column)
                 column = self.fill_gap(column)
                 self.board.set_column(column_index, column)
-            if self.board.board == old_board:
+            if self.board.get_board() == old_board:
                 print("No more solutions available, exiting...")
                 break

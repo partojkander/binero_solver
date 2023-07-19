@@ -10,36 +10,44 @@ from exceptions import (
 
 class BineroBoard:
 
-    board = []
+    _board = []
 
-    def __init__(self):
-        self.board = ['    ',
-                      '    ',
-                      '    ',
-                      '    ']
+    def __init__(self, size):
+        if size % 2 != 0:
+            raise ValueError("Error, board cannot have odd number of rows/columns")
+
+        self._board = [' '*size] * size
 
     def get_row(self, index) -> str:
-        return self.board[index]
+        return self._board[index]
 
     def get_column(self, index) -> str:
-        return ''.join([row[index] for row in self.board])
+        return ''.join([row[index] for row in self._board])
 
     def set_row(self, index, new_row) -> None:
-        self.board[index] = new_row
+        self._board[index] = new_row
 
     def set_column(self, column_index, new_column):
         for row_index, row in enumerate(self.get_rows()):
             row = row[:column_index] + new_column[row_index] + row[column_index + 1:]
-            self.board[row_index] = row
+            self._board[row_index] = row
 
     def get_rows(self) -> List[str]:
-        return self.board
+        return self._board
 
     def get_columns(self) -> List[str]:
         columns = []
-        for index in range(len(self.board[0])):
-            columns.append(''.join([row[index] for row in self.board]))
+        for index in range(len(self._board[0])):
+            columns.append(''.join([row[index] for row in self._board]))
         return columns
+
+    def set_board(self, board: List[str]):
+        if len(board) != len(self._board):
+            raise ValueError(f"Error: supplied board has different size: {len(board)}, should be: {len(self._board)}")
+        self._board = board
+
+    def get_board(self):
+        return self._board
 
     def is_valid_sequence(self, sequence: str) -> bool:
         print(f"Validating sequence '{sequence}'")
@@ -73,4 +81,4 @@ class BineroBoard:
         return True
 
     def __str__(self):
-        return '\n'.join([row for row in self.board])
+        return '\n'.join([row for row in self._board])
