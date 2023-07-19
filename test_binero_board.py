@@ -59,10 +59,10 @@ class TestBineroBoard(unittest.TestCase):
 
     def test_board_is_solved(self):
         binero_board = BineroBoard()
-        binero_board.board = ['0110',
-                              '1001',
-                              '1001',
-                              '0110']
+        binero_board.board = ['0101',
+                              '1010',
+                              '1100',
+                              '0011']
         assert_that(binero_board.is_board_solved(), equal_to(True))
 
     def test_set_row(self):

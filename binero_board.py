@@ -59,10 +59,16 @@ class BineroBoard:
         for row in self.get_rows():
             if not self.is_valid_sequence(row):
                 return False
+        print("Checking for duplicate rows...")
+        if len(self.get_rows()) != len(set(self.get_rows())):
+            return False
         print("Validating columns...")
         for column in self.get_columns():
             if not self.is_valid_sequence(column):
                 return False
+        print("Checking for duplicate columns...")
+        if len(self.get_columns()) != len(set(self.get_columns())):
+            return False
 
         return True
 
