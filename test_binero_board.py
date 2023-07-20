@@ -115,3 +115,8 @@ class TestBineroBoard(unittest.TestCase):
                                 '101 ',
                                 '1001'])
         assert_that(binero_board.find_next_unsolved_cell(), equal_to((3, 2)))
+
+    def test_set_cell(self):
+        binero_board = BineroBoard(size=2)
+        binero_board.set_cell(1, 1, '1')
+        assert_that(binero_board.get_board(), equal_to(['  ', ' 1']))
