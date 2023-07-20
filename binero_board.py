@@ -18,16 +18,16 @@ class BineroBoard:
 
         self._board = [' '*size] * size
 
-    def get_row(self, index) -> str:
+    def get_row(self, index: int) -> str:
         return self._board[index]
 
-    def get_column(self, index) -> str:
+    def get_column(self, index: int) -> str:
         return ''.join([row[index] for row in self._board])
 
-    def set_row(self, index, new_row) -> None:
+    def set_row(self, index: int, new_row: str) -> None:
         self._board[index] = new_row
 
-    def set_column(self, column_index, new_column):
+    def set_column(self, column_index: int, new_column: str) -> None:
         for row_index, row in enumerate(self.get_rows()):
             row = row[:column_index] + new_column[row_index] + row[column_index + 1:]
             self._board[row_index] = row
@@ -45,12 +45,12 @@ class BineroBoard:
             columns.append(''.join([row[index] for row in self._board]))
         return columns
 
-    def set_board(self, board: List[str]):
+    def set_board(self, board: List[str]) -> None:
         if len(board) != len(self._board):
             raise ValueError(f"Error: supplied board has different size: {len(board)}, should be: {len(self._board)}")
         self._board = board
 
-    def get_board(self):
+    def get_board(self) -> List[str]:
         return self._board
 
     def is_valid_sequence(self, sequence: str) -> bool:
@@ -66,7 +66,7 @@ class BineroBoard:
 
         return True
 
-    def is_board_solved(self):
+    def is_board_solved(self) -> bool:
         print("Validating rows...")
         for row in self.get_rows():
             if not self.is_valid_sequence(row):

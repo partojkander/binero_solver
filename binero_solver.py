@@ -22,7 +22,7 @@ class BineroSolver:
         sequence = sequence.replace('1 1', '101')
         return sequence
 
-    def apply_solutions(self):
+    def apply_solutions(self) -> None:
         while True:
             old_board = copy(self.board.get_board())
             for row_index, row in enumerate(self.board.get_rows()):
