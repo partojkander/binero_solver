@@ -80,5 +80,12 @@ class BineroBoard:
 
         return True
 
+    def find_next_unsolved_cell(self) -> (int, int):
+        for row_index, row in enumerate(self.get_rows()):
+            for column_index, column in enumerate(row):
+                if column == ' ':
+                    return column_index, row_index
+        return None
+
     def __str__(self):
         return '\n'.join([row for row in self._board])

@@ -97,3 +97,21 @@ class TestBineroBoard(unittest.TestCase):
     def test_set_board_with_invalid_size(self):
         board = BineroBoard(size=4)
         assert_that(calling(board.set_board).with_args(['10', '01']), raises(ValueError))
+
+    def test_find_unsolved_empty_board(self):
+        binero_board = BineroBoard(size=4)
+        assert_that(binero_board.find_next_unsolved_cell(), equal_to((0, 0)))
+
+    def test_find_unsolved_full_board(self):
+        binero_board = BineroBoard(size=2)
+        binero_board.set_board(['01',
+                                '10'])
+        assert_that(binero_board.find_next_unsolved_cell(), equal_to(None))
+
+    def test_find_unsolved_partial_board(self):
+        binero_board = BineroBoard(size=4)
+        binero_board.set_board(['0101',
+                                '1010',
+                                '101 ',
+                                '1001'])
+        assert_that(binero_board.find_next_unsolved_cell(), equal_to((3, 2)))
