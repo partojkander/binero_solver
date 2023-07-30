@@ -32,7 +32,8 @@ class BineroBoard:
             row = row[:column_index] + new_column[row_index] + row[column_index + 1:]
             self._board[row_index] = row
 
-    def set_cell(self, column_index: int, row_index: int, new_value: str) -> None:
+    def set_cell(self, position: (int, int), new_value: str) -> None:
+        column_index, row_index = position[0], position[1]
         row = self._board[row_index]
         self._board[row_index] = row[:column_index] + new_value + row[column_index + 1:]
 

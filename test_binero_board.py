@@ -118,5 +118,5 @@ class TestBineroBoard(unittest.TestCase):
 
     def test_set_cell(self):
         binero_board = BineroBoard(size=2)
-        binero_board.set_cell(1, 1, '1')
+        binero_board.set_cell((1, 1), '1')
         assert_that(binero_board.get_board(), equal_to(['  ', ' 1']))
