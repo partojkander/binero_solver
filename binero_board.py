@@ -55,7 +55,6 @@ class BineroBoard:
         return self._board
 
     def is_valid_sequence(self, sequence: str) -> bool:
-        print(f"Validating sequence '{sequence}'")
         if '000' in sequence:
             raise BineroThreeZeroesException(f"Err: sequence '{sequence}' contains '000'")
         if '111' in sequence:
@@ -68,18 +67,14 @@ class BineroBoard:
         return True
 
     def is_board_solved(self) -> bool:
-        print("Validating rows...")
         for row in self.get_rows():
             if not self.is_valid_sequence(row):
                 return False
-        print("Checking for duplicate rows...")
         if len(self.get_rows()) != len(set(self.get_rows())):
             return False
-        print("Validating columns...")
         for column in self.get_columns():
             if not self.is_valid_sequence(column):
                 return False
-        print("Checking for duplicate columns...")
         if len(self.get_columns()) != len(set(self.get_columns())):
             return False
 
