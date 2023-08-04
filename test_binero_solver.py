@@ -1,6 +1,6 @@
 import unittest
 
-from hamcrest import assert_that, equal_to
+from hamcrest import assert_that, equal_to, not_
 
 from binero_solver import BineroSolver
 
@@ -49,3 +49,15 @@ class TestBineroSolver(unittest.TestCase):
                           '0101',
                           '1   ']
         assert_that(solver.board.get_board(), equal_to(expected_board))
+
+    def test_brute_force_1(self):
+        solver = BineroSolver(size=2)
+        solver.board.set_board(['10',
+                                '  '])
+        solved_board = solver.brute_force(solver.board)
+        assert_that(solved_board.get_board(), equal_to(['10', '01']))
+
+    def test_brute_force_2(self):
+        solver = BineroSolver(size=4)
+        solved_board = solver.brute_force(solver.board)
+        assert_that(solved_board, not_(equal_to(None)))

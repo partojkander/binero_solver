@@ -120,3 +120,15 @@ class TestBineroBoard(unittest.TestCase):
         binero_board = BineroBoard(size=2)
         binero_board.set_cell((1, 1), '1')
         assert_that(binero_board.get_board(), equal_to(['  ', ' 1']))
+
+    def test_has_empty_cells(self):
+        full_board = BineroBoard(size=2)
+        full_board.set_board(['01',
+                              '10'])
+        non_full_board = BineroBoard(size=2)
+        partial_board = BineroBoard(size=2)
+        partial_board.set_board([' 1',
+                                 '01'])
+        assert_that(full_board.has_empty_cells(), equal_to(False))
+        assert_that(non_full_board.has_empty_cells(), equal_to(True))
+        assert_that(partial_board.has_empty_cells(), equal_to(True))

@@ -87,5 +87,8 @@ class BineroBoard:
                     return column_index, row_index
         return None
 
+    def has_empty_cells(self) -> bool:
+        return self.find_next_unsolved_cell() is not None
+
     def __str__(self):
         return '\n'.join([row for row in self._board])
