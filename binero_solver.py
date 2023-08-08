@@ -39,8 +39,8 @@ class BineroSolver:
 
     def brute_force(self, board_: BineroBoard) -> BineroBoard or None:
         board = deepcopy(board_)
-        board_str = str(board).replace('\n', ', ')
-        print(f"brute_force(), board is: '{board_str}'")
+        # board_str = str(board).replace('\n', ', ')
+        # print(f"brute_force(), board is: '{board_str}'")
 
         filled, valid = board_.get_board_status()
         if filled:
