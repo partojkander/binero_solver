@@ -134,6 +134,11 @@ class TestBineroBoard(unittest.TestCase):
         board.set_board(['0010', '000 ', '    ', '    '])
         assert_that(board.get_board_status(), equal_to((False, False)))
 
+    def test_get_board_status_6(self):
+        board = BineroBoard(size=4)
+        board.set_board(['0010', '0011', '    ', '    '])
+        assert_that(board.get_board_status(), equal_to((False, False)))
+
     def test_is_valid_three_of_same(self):
         board = BineroBoard(size=4)
         board.set_board(['000 ', '    ', '    ', '    '])

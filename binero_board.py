@@ -59,8 +59,10 @@ class BineroBoard:
                 return False
         return True
 
-    def is_valid_different_counts(self) -> bool:
+    def is_valid_different_counts(self, ignore_lines_with_empty_cells=False) -> bool:
         for row in self.get_rows() + self.get_columns():
+            if ignore_lines_with_empty_cells and ' ' in row:
+                continue
             if row.count('0') != row.count('1'):
                 return False
         return True
@@ -82,7 +84,7 @@ class BineroBoard:
     def get_board_status(self) -> (bool, bool):  # (filled, valid)
         filled = not self.has_empty_cells()
         # We only want to know if the board has potential, e.g. not invalid (yet)
-        valid = self.is_valid_three_of_same()
+        valid = self.is_valid_three_of_same() and self.is_valid_different_counts(ignore_lines_with_empty_cells=True)
         return filled, valid
 
     def find_next_unsolved_cell(self) -> (int, int):
