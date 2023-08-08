@@ -1,12 +1,5 @@
 from typing import List
 
-from exceptions import (
-    BineroEmptyCellsException,
-    BineroMismatchingCountException,
-    BineroThreeOnesException,
-    BineroThreeZeroesException
-)
-
 
 class BineroBoard:
 
@@ -54,31 +47,43 @@ class BineroBoard:
     def get_board(self) -> List[str]:
         return self._board
 
-    def is_valid_sequence(self, sequence: str) -> bool:
-        if '000' in sequence:
-            raise BineroThreeZeroesException(f"Err: sequence '{sequence}' contains '000'")
-        if '111' in sequence:
-            raise BineroThreeOnesException(f"Err: sequence '{sequence}' contains '111'")
-        if ' ' in sequence:
-            raise BineroEmptyCellsException(f"Err: sequence '{sequence}' contains empty cell(s)")
-        if sequence.count('0') != sequence.count('1'):
-            raise BineroMismatchingCountException(f"Err: sequence '{sequence}' has different amount of 1's and 0's")
+    def is_valid_three_of_same(self) -> bool:
+        for row in self.get_rows() + self.get_columns():
+            if '000' in row or '111' in row:
+                return False
+        return True
 
+    def is_valid_empty_cells(self) -> bool:
+        for row in self.get_rows() + self.get_columns():
+            if ' ' in row:
+                return False
+        return True
+
+    def is_valid_different_counts(self) -> bool:
+        for row in self.get_rows() + self.get_columns():
+            if row.count('0') != row.count('1'):
+                return False
         return True
 
     def is_board_solved(self) -> bool:
-        for row in self.get_rows():
-            if not self.is_valid_sequence(row):
-                return False
+        if not self.is_valid_three_of_same():
+            return False
+        if not self.is_valid_empty_cells():
+            return False
+        if not self.is_valid_different_counts():
+            return False
         if len(self.get_rows()) != len(set(self.get_rows())):
             return False
-        for column in self.get_columns():
-            if not self.is_valid_sequence(column):
-                return False
         if len(self.get_columns()) != len(set(self.get_columns())):
             return False
 
         return True
+
+    def get_board_status(self) -> (bool, bool):  # (filled, valid)
+        filled = not self.has_empty_cells()
+        # We only want to know if the board has potential, e.g. not invalid (yet)
+        valid = self.is_valid_three_of_same()
+        return filled, valid
 
     def find_next_unsolved_cell(self) -> (int, int):
         for row_index, row in enumerate(self.get_rows()):

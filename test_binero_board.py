@@ -3,12 +3,6 @@ import unittest
 from hamcrest import assert_that, equal_to, raises, calling
 
 from binero_board import BineroBoard
-from exceptions import (
-    BineroEmptyCellsException,
-    BineroMismatchingCountException,
-    BineroThreeOnesException,
-    BineroThreeZeroesException
-)
 
 
 class TestBineroBoard(unittest.TestCase):
@@ -31,30 +25,6 @@ class TestBineroBoard(unittest.TestCase):
         assert_that(b.get_column(1), equal_to('0010'))
         assert_that(b.get_column(2), equal_to('1011'))
         assert_that(b.get_column(3), equal_to('0101'))
-
-    def test_valid_sequence(self):
-        board = BineroBoard(size=6)
-        assert_that(board.is_valid_sequence('010101'), equal_to(True))
-
-    def test_invalid_sequence_three_zeroes(self):
-        binero_board = BineroBoard(size=8)
-        assert_that(calling(binero_board.is_valid_sequence).with_args('11000110'),
-                    raises(BineroThreeZeroesException))
-
-    def test_invalid_sequence_three_ones(self):
-        binero_board = BineroBoard(size=8)
-        assert_that(calling(binero_board.is_valid_sequence).with_args('11100110'),
-                    raises(BineroThreeOnesException))
-
-    def test_invalid_sequence_mismatching_counts(self):
-        binero_board = BineroBoard(size=4)
-        assert_that(calling(binero_board.is_valid_sequence).with_args('1011'),
-                    raises(BineroMismatchingCountException))
-
-    def test_invalid_sequence_empty_cells(self):
-        binero_board = BineroBoard(size=6)
-        assert_that(calling(binero_board.is_valid_sequence).with_args('1 010 '),
-                    raises(BineroEmptyCellsException))
 
     def test_board_is_solved(self):
         binero_board = BineroBoard(size=4)
@@ -132,3 +102,61 @@ class TestBineroBoard(unittest.TestCase):
         assert_that(full_board.has_empty_cells(), equal_to(False))
         assert_that(non_full_board.has_empty_cells(), equal_to(True))
         assert_that(partial_board.has_empty_cells(), equal_to(True))
+
+    def test_get_board_status_1(self):
+        board = BineroBoard(size=2)
+        board.set_board(['01', '10'])
+        assert_that(board.get_board_status(), equal_to((True, True)))
+
+    def test_get_board_status_2(self):
+        board = BineroBoard(size=2)
+        board.set_board(['01', '1 '])
+        assert_that(board.get_board_status(), equal_to((False, True)))
+
+    def test_get_board_status_3(self):
+        board = BineroBoard(size=4)
+        board.set_board(['0111',
+                         '1010',
+                         '0101',
+                         '011 '])
+        assert_that(board.get_board_status(), equal_to((False, False)))
+
+    def test_get_board_status_4(self):
+        board = BineroBoard(size=4)
+        board.set_board(['0111',
+                         '1010',
+                         '0101',
+                         '0111'])
+        assert_that(board.get_board_status(), equal_to((True, False)))
+
+    def test_get_board_status_5(self):
+        board = BineroBoard(size=4)
+        board.set_board(['0010', '000 ', '    ', '    '])
+        assert_that(board.get_board_status(), equal_to((False, False)))
+
+    def test_is_valid_three_of_same(self):
+        board = BineroBoard(size=4)
+        board.set_board(['000 ', '    ', '    ', '    '])
+        assert_that(board.is_valid_three_of_same(), equal_to(False))
+
+        board.set_board(['111 ', '    ', '    ', '    '])
+        assert_that(board.is_valid_three_of_same(), equal_to(False))
+
+        board.set_board(['1   ', '1   ', '1   ', '    '])
+        assert_that(board.is_valid_three_of_same(), equal_to(False))
+
+    def test_is_valid_empty_cells(self):
+        board = BineroBoard(size=4)
+        board.set_board(['0001', '1111', '1111', '111 '])
+        assert_that(board.is_valid_empty_cells(), equal_to(False))
+
+        board.set_board(['0001', '1111', '1111', '1111'])
+        assert_that(board.is_valid_empty_cells(), equal_to(True))
+
+    def test_is_valid_different_counts(self):
+        board = BineroBoard(size=2)
+        board.set_board(['01', '11'])
+        assert_that(board.is_valid_different_counts(), equal_to(False))
+
+        board.set_board(['01', '10'])
+        assert_that(board.is_valid_different_counts(), equal_to(True))

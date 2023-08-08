@@ -1,7 +1,6 @@
 from copy import deepcopy
 
 from binero_board import BineroBoard
-from exceptions import BineroInvalidSequenceException
 
 
 class BineroSolver:
@@ -40,21 +39,20 @@ class BineroSolver:
 
     def brute_force(self, board_: BineroBoard) -> BineroBoard or None:
         board = deepcopy(board_)
-        # board_str = str(board).replace('\n', ', ')
-        # print(f"brute_force(), board is: '{board_str}'")
-        try:
-            solved = BineroBoard.is_board_solved(board)
-        except BineroInvalidSequenceException:
-            solved = False
-        if solved:
-            # Board is solved, return it
-            return board
-        # TODO: Fail fast if board is not filled but invalid
-        elif not board.has_empty_cells():
-            # Board is filled but not valid
+        board_str = str(board).replace('\n', ', ')
+        print(f"brute_force(), board is: '{board_str}'")
+
+        filled, valid = board_.get_board_status()
+        if filled:
+            if board.is_board_solved():
+                # Board is solved, return it
+                return board
+            else:
+                return None
+        if not valid:
             return None
         else:
-            # Board is not filled
+            # Board is not filled but yet valid
             next_unsolved_cell = board.find_next_unsolved_cell()
             board.set_cell(next_unsolved_cell, "0")
             new_board = self.brute_force(board)
