@@ -70,3 +70,10 @@ class TestBineroSolver(unittest.TestCase):
         print(solved_board)
         assert_that(solved_board, not_(equal_to(None)))
         assert_that(solved_board.is_board_solved(), equal_to(True))
+
+    def test_brute_force_size_8(self):
+        solver = BineroSolver(size=8)
+        solved_board = solver.brute_force(solver.board)
+        print(solved_board)
+        assert_that(solved_board, not_(equal_to(None)))
+        assert_that(solved_board.is_board_solved(), equal_to(True))
