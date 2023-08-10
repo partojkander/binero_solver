@@ -42,14 +42,14 @@ class BineroSolver:
         # board_str = str(board).replace('\n', ', ')
         # print(f"brute_force(), board is: '{board_str}'")
 
-        filled, valid = board_.get_board_status()
+        filled, has_potential = board_.get_board_status()
         if filled:
             if board.is_board_solved():
                 # Board is solved, return it
                 return board
             else:
                 return None
-        if not valid:
+        if not has_potential:
             return None
         else:
             # Board is not filled but yet valid

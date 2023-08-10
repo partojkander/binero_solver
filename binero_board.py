@@ -81,11 +81,12 @@ class BineroBoard:
 
         return True
 
-    def get_board_status(self) -> (bool, bool):  # (filled, valid)
+    def get_board_status(self) -> (bool, bool):  # (filled, has_potential)
         filled = not self.has_empty_cells()
         # We only want to know if the board has potential, e.g. not invalid (yet)
-        valid = self.is_valid_three_of_same() and self.is_valid_different_counts(ignore_lines_with_empty_cells=True)
-        return filled, valid
+        has_potential = self.is_valid_three_of_same() and \
+            self.is_valid_different_counts(ignore_lines_with_empty_cells=True)
+        return filled, has_potential
 
     def find_next_unsolved_cell(self) -> (int, int):
         for row_index, row in enumerate(self.get_rows()):
