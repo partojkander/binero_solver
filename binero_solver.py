@@ -10,14 +10,16 @@ class BineroSolver:
     def __init__(self, size):
         self.board = BineroBoard(size=size)
 
-    def fill_around_double(self, sequence: str) -> str:
+    @staticmethod
+    def fill_around_double(sequence: str) -> str:
         sequence = sequence.replace(' 00', '100')
         sequence = sequence.replace('00 ', '001')
         sequence = sequence.replace(' 11', '011')
         sequence = sequence.replace('11 ', '110')
         return sequence
 
-    def fill_gap(self, sequence: str) -> str:
+    @staticmethod
+    def fill_gap(sequence: str) -> str:
         sequence = sequence.replace('0 0', '010')
         sequence = sequence.replace('1 1', '101')
         return sequence
