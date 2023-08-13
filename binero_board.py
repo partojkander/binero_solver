@@ -48,22 +48,22 @@ class BineroBoard:
         return self._board
 
     def is_valid_three_of_same(self) -> bool:
-        for row in self.get_rows() + self.get_columns():
-            if '000' in row or '111' in row:
+        for sequence in self.get_rows() + self.get_columns():
+            if '000' in sequence or '111' in sequence:
                 return False
         return True
 
     def is_valid_empty_cells(self) -> bool:
-        for row in self.get_rows() + self.get_columns():
-            if ' ' in row:
+        for sequence in self.get_rows() + self.get_columns():
+            if ' ' in sequence:
                 return False
         return True
 
     def is_valid_different_counts(self, ignore_lines_with_empty_cells=False) -> bool:
-        for row in self.get_rows() + self.get_columns():
-            if ignore_lines_with_empty_cells and ' ' in row:
+        for sequence in self.get_rows() + self.get_columns():
+            if ignore_lines_with_empty_cells and ' ' in sequence:
                 continue
-            if row.count('0') != row.count('1'):
+            if sequence.count('0') != sequence.count('1'):
                 return False
         return True
 
